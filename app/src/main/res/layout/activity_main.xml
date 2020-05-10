@@ -21,7 +21,7 @@
         android:layout_marginBottom="32dp"
         android:clickable="true"
         android:tint="@android:color/white"
-        app:backgroundTint="#D81B60"
+        app:backgroundTint="@color/colorPrimaryDark"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@android:drawable/ic_input_add" />

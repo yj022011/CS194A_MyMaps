@@ -30,7 +30,7 @@ class MapsAdapter(val context: Context, val userMaps: List<UserMap>, val onClick
             onClickListener.onItemClick(position)
         }
         val textViewTitle = holder.itemView.findViewById<TextView>(R.id.tvMapTitle)
-        textViewTitle.text = userMap.title
+        textViewTitle.text = userMap.title + "\n [${userMap.places.size} places]"
     }
 
     class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView)

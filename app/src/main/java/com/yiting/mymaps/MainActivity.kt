@@ -35,8 +35,10 @@ class MainActivity : AppCompatActivity() {
 //        userMaps = generateSampleData().toMutableList()
 //        userMaps.addAll(userMapsFromFile)
         userMaps = deserializedUserMaps(this).toMutableList()
+
         // Set layout manager on the recycler view
         rvMaps.layoutManager = LinearLayoutManager(this)
+
         // Set adapter on the recycler view
         mapAdapter = MapsAdapter(this, userMaps, object: MapsAdapter.OnClickListener{
             override fun onItemClick(position: Int){
@@ -109,10 +111,12 @@ class MainActivity : AppCompatActivity() {
         }
         ObjectInputStream(FileInputStream(dataFile)).use{return it.readObject() as List<UserMap>}
     }
+
     private fun getDataFile(context: Context): File {
         Log.i(TAG, "Getting file from directory ${context.filesDir}")
         return File(context.filesDir, FILENAME)
     }
+
     private fun generateSampleData(): List<UserMap> {
         return listOf(
             UserMap(

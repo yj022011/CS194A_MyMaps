@@ -1,16 +1,26 @@
 package com.yiting.mymaps
 
+import android.app.Activity
+import android.app.AlertDialog
+import android.content.DialogInterface
+import android.content.Intent
+import android.graphics.Bitmap
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.EditText
+import android.widget.Toast
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.LatLngBounds
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
+import com.google.maps.android.ui.IconGenerator
+import com.google.maps.android.ui.IconGenerator.*
 import com.yiting.mymaps.models.UserMap
 
 private const val TAG = "DisplayMapsActivity"
@@ -45,15 +55,68 @@ class DisplayMapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
         Log.i(TAG, "user map to render: ${userMap.title}")
 
+        val iconGenerator = IconGenerator(this@DisplayMapsActivity)
+        iconGenerator.setStyle(STYLE_BLUE)
+//        iconGenerator.setColor(R.color.colorPrimaryDark)
+//        iconGenerator.setBackground(getResources().getDrawable()(R.color.colorPrimaryDark))
         val boundsBuilder = LatLngBounds.Builder()
-        for (place in userMap.places) {
+
+        val iterator = userMap.places.iterator()
+        for ((index, place) in iterator.withIndex()) {
             val latLng = LatLng(place.latitude, place.longitude)
             boundsBuilder.include(latLng)
-            mMap.addMarker(MarkerOptions().position(latLng).title(place.title).snippet(place.description))
+            val bitmap: Bitmap = iconGenerator.makeIcon((index + 1).toString())
+            val icon: BitmapDescriptor = BitmapDescriptorFactory.fromBitmap(bitmap)
+            mMap.addMarker(MarkerOptions()
+                .position(latLng)
+                .title(place.title)
+                .snippet(place.description)
+                .icon(icon))
         }
+
         // Add a marker in Sydney and move the camera
         mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(boundsBuilder.build(), 1000, 1000, 0))
-//        mMap.animateCamera(CameraUpdateFactory.newLatLngBounds(boundsBuilder.build(), 1000, 1000, 0))
-
     }
+
+//    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+//        menuInflater.inflate(R.menu.menu_delete_map, menu)
+//        return super.onCreateOptionsMenu(menu)
+//    }
+//
+//    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+//        if (item.itemId == R.id.miDelete) {
+//            Log.i(TAG, "Tapped on delete")
+//            val data = Intent()
+//            setResult(Activity.RESULT_OK, data)
+//            finish()
+//            return true
+//        }
+//        return super.onOptionsItemSelected(item)
+//    }
+
+//    private fun showAlertDialog() {
+//        val mapDeleteView = LayoutInflater.from(this).inflate(R.layout.dialog_delete_map, null)
+//        val dialog =
+//            AlertDialog.Builder(this)
+//                .setTitle("Are you sure you want to delete this map?")
+//                .setView(mapDeleteView)
+//                .setNegativeButton("Cancel", null)
+//                .setPositiveButton("OK", null)
+//                .show()
+//
+//        dialog.getButton(DialogInterface.BUTTON_POSITIVE).setOnClickListener{
+//            val title = mapDeleteView.findViewById<EditText>(R.id.etTitle).text.toString()
+//            if (title.trim().isEmpty()) {
+//                Toast.makeText(this, "Map must have non-empty title", Toast.LENGTH_LONG).show()
+//                return@setOnClickListener
+//            }
+//
+//            // Navigate to create map activity
+//            val intent = Intent(this@DisplayMapsActivity, CreateMapActivity::class.java)
+//            intent.putExtra(EXTRA_MAP_TITLE, title)
+//            startActivityForResult(intent, REQUEST_CODE)
+//
+//            dialog.dismiss()
+//        }
+//    }
 }

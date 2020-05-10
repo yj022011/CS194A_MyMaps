@@ -3,9 +3,8 @@ package com.yiting.mymaps
 import android.app.Activity
 import android.content.DialogInterface
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.graphics.Bitmap
 import android.os.Bundle
-import android.os.UserManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
@@ -13,16 +12,15 @@ import android.view.MenuItem
 import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.Marker
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import com.google.android.material.snackbar.Snackbar
+import com.google.maps.android.ui.IconGenerator
 import com.yiting.mymaps.models.Place
 import com.yiting.mymaps.models.UserMap
 
@@ -73,6 +71,7 @@ class CreateMapActivity : AppCompatActivity(), OnMapReadyCallback {
         }
         return super.onOptionsItemSelected(item)
     }
+
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -92,7 +91,6 @@ class CreateMapActivity : AppCompatActivity(), OnMapReadyCallback {
         }
         // Add a marker in Sydney and move the camera
         val siliconValley = LatLng(37.4, -122.1)
-//        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(siliconValley, 10f))
     }
 
@@ -113,8 +111,19 @@ class CreateMapActivity : AppCompatActivity(), OnMapReadyCallback {
                 Toast.makeText(this, "Place must have non-empty title and description", Toast.LENGTH_LONG).show()
                 return@setOnClickListener
             }
-            val marker = mMap.addMarker(MarkerOptions().position(latLng).title(title).snippet(description))
+
+            val iconGenerator = IconGenerator(this@CreateMapActivity)
+            iconGenerator.setStyle(IconGenerator.STYLE_GREEN)
+            val bitmap: Bitmap = iconGenerator.makeIcon(title)
+            val icon: BitmapDescriptor = BitmapDescriptorFactory.fromBitmap(bitmap)
+
+            val marker = mMap.addMarker(MarkerOptions()
+                .position(latLng)
+                .title(title)
+                .snippet(description)
+                .icon(icon))
             markers.add(marker)
+
             dialog.dismiss()
         }
     }
