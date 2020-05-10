@@ -18,6 +18,7 @@ The following **extensions** are implemented:
 
 * [x] Changed the color theme of the app.
 * [x] Instead of the default marker, a custom marker drawable is used (speech bubble with place title as the text).
+* [X] Added number of places of each map in the main view.
 
 ## Video Walkthrough
 
