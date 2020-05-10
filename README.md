@@ -16,6 +16,7 @@ The following **required** functionality is completed:
 
 The following **extensions** are implemented:
 
+* [X] Changed the color theme of the app.
 * [ ] When a map marker is created, the pin is animated.
 * [ ] List anything else that you did to improve the app functionality or design!
 
@@ -29,7 +30,9 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-Describe any challenges encountered while building the app.
+* When adding Google maps to my app, the map won't show up despite adding the correct API keys and re-installing the app. It worked after a few hours without any changes on my end. So the reason for this bug is unknown.
+
+* Could not get the transition animations to show up.
 
 ## License
 
