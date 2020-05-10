@@ -18,22 +18,20 @@ The following **extensions** are implemented:
 
 * [x] Changed the color theme of the app.
 * [x] Instead of the default marker, a custom marker drawable is used (speech bubble with place title as the text).
-* [ ] When a map marker is created, the pin is animated.
-* [ ] List anything else that you did to improve the app functionality or design!
 
 ## Video Walkthrough
 
 Here's a walkthrough of implemented user stories:
 
-<img src='http://i.imgur.com/link/to/your/gif/file.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+![](mymaps.gif)
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
 * When adding Google maps to my app, the map won't show up despite adding the correct API keys and re-installing the app. It worked after a few hours without any changes on my end. So the reason for this bug is unknown.
-
 * Could not get the transition animations to show up.
+* Tried to add the function of deleting a map when an existing map is displayed by adding a delete button in the menu (similar to the save menu in the create_map view), but wasn't able to figure out how deleting the data and communicating with other views work.
 
 ## License
 
