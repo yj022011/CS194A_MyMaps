@@ -16,7 +16,8 @@ The following **required** functionality is completed:
 
 The following **extensions** are implemented:
 
-* [X] Changed the color theme of the app.
+* [x] Changed the color theme of the app.
+* [x] Instead of the default marker, a custom marker drawable is used (speech bubble with place title as the text).
 * [ ] When a map marker is created, the pin is animated.
 * [ ] List anything else that you did to improve the app functionality or design!
 
